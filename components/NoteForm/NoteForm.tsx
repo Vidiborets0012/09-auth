@@ -1,6 +1,6 @@
 "use client";
 
-import { createNote } from "@/lib/api";
+import { createNote } from "@/lib/api/api";
 import { useRouter } from "next/navigation";
 import { CreateNoteData, NoteTag } from "@/types/note";
 import { useNoteStore } from "@/lib/store/noteStore";
