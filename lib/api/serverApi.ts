@@ -40,3 +40,15 @@ export const fetchNoteByIdServer = async (id: string): Promise<Note> => {
 
   return data;
 };
+
+export const checkServerSession = async () => {
+  const cookieStore = await cookies();
+
+  const res = await nextServer.get("/auth/session", {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+
+  return res;
+};
