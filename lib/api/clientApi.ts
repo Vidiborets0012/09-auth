@@ -1,5 +1,6 @@
 import { CreateNoteData, Note } from "@/types/note";
 import nextServer from "./api";
+import { User } from "@/types/user";
 
 interface FetchNotesResponse {
   notes: Note[];
@@ -31,5 +32,15 @@ export const deleteNote = async (id: string): Promise<Note> => {
 
 export const fetchNoteById = async (id: string): Promise<Note> => {
   const response = await nextServer.get<Note>(`/notes/${id}`);
+  return response.data;
+};
+
+export interface RegisterRequest {
+  email: string;
+  password: string;
+}
+
+export const register = async (data: RegisterRequest): Promise<User> => {
+  const response = await nextServer.post<User>("/auth/register", data);
   return response.data;
 };
