@@ -63,3 +63,17 @@ export const checkSession = async (): Promise<User> => {
   const res = await nextServer.get<User>("/auth/session");
   return res.data;
 };
+
+export const getMe = async (): Promise<User> => {
+  const { data } = await nextServer.get<User>("/auth/me");
+  return data;
+};
+
+export type UpdateUserRequest = {
+  username: string;
+};
+
+export const updateMe = async (payload: UpdateUserRequest): Promise<User> => {
+  const { data } = await nextServer.put<User>("/auth/me", payload);
+  return data;
+};
