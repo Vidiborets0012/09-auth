@@ -44,3 +44,13 @@ export const register = async (data: RegisterRequest): Promise<User> => {
   const response = await nextServer.post<User>("/auth/register", data);
   return response.data;
 };
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export const login = async (data: LoginRequest): Promise<User> => {
+  const response = await nextServer.post<User>("/auth/login", data);
+  return response.data;
+};
