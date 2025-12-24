@@ -58,3 +58,8 @@ export const login = async (data: LoginRequest): Promise<User> => {
 export const logout = async (): Promise<void> => {
   await nextServer.post("/auth/logout");
 };
+
+export const checkSession = async (): Promise<User> => {
+  const res = await nextServer.get<User>("/auth/session");
+  return res.data;
+};
