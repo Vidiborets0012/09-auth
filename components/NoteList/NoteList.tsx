@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Note } from "../../types/note";
-import { deleteNote } from "@/lib/api/api";
+// import { deleteNote } from "@/lib/api/api";
+import { deleteNote } from "@/lib/api/clientApi";
 import toast from "react-hot-toast";
 import EmptyState from "../common/EmptyState/EmptyState";
 import Link from "next/link";
