@@ -10,8 +10,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Profile | NoteHub",
     description: "View and manage your NoteHub profile",
-    //замінити пізніше на реаальний шлях
-    url: "https://09-auth-olive-one.vercel.app/profile",
+
+    url: "https://09-auth-six-vert.vercel.app/profile",
     images: [
       {
         url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
