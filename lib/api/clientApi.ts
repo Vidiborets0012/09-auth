@@ -59,13 +59,19 @@ export const logout = async (): Promise<void> => {
   await nextServer.post("/auth/logout");
 };
 
-export const checkSession = async (): Promise<User> => {
-  const res = await nextServer.get<User>("/auth/session");
-  return res.data;
+export const checkSession = async (): Promise<User | null> => {
+  // const res = await nextServer.get<User>("/auth/session");
+  // return res.data;
+  try {
+    const { data } = await nextServer.get<User>("/auth/session");
+    return data ?? null;
+  } catch {
+    return null;
+  }
 };
 
 export const getMe = async (): Promise<User> => {
-  const { data } = await nextServer.get<User>("/auth/me");
+  const { data } = await nextServer.get<User>("/users/me");
   return data;
 };
 
@@ -74,6 +80,6 @@ export type UpdateUserRequest = {
 };
 
 export const updateMe = async (payload: UpdateUserRequest): Promise<User> => {
-  const { data } = await nextServer.put<User>("/auth/me", payload);
+  const { data } = await nextServer.patch<User>("/users/me", payload);
   return data;
 };
