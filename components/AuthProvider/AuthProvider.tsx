@@ -17,7 +17,9 @@ export default function AuthProvider({ children }: Props) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const { setUser, clearIsAuthenticated } = useAuthStore();
+  // const { setUser, clearIsAuthenticated } = useAuthStore();
+  const setUser = useAuthStore((s) => s.setUser);
+  const clearIsAuthenticated = useAuthStore((s) => s.clearIsAuthenticated);
 
   useEffect(() => {
     const verifyAuth = async () => {
@@ -27,7 +29,13 @@ export default function AuthProvider({ children }: Props) {
 
       try {
         const user = await checkSession();
-        setUser(user);
+
+        if (user) {
+          setUser(user);
+        } else {
+          throw new Error("No session");
+        }
+        // setUser(user);
       } catch {
         clearIsAuthenticated();
 
