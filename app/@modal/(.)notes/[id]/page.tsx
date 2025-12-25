@@ -3,8 +3,9 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import { fetchNoteById } from "@/lib/api/api";
+// import { fetchNoteById } from "@/lib/api/api";
 import NotePreview from "./NotePreview";
+import { fetchNoteById } from "@/lib/api/clientApi";
 
 interface PageProps {
   params: Promise<{ id: string }>;
