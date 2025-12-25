@@ -11,7 +11,7 @@ const EditProfilePage = () => {
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const EditProfilePage = () => {
       .then((user) => {
         setUsername(user.username);
         setEmail(user.email);
-        setAvatar(user.avatar);
+        setAvatar(user.avatar ?? null);
       })
       .finally(() => setLoading(false));
   }, []);
