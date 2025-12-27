@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import nextServer from "./api";
 import type { Note } from "@/types/note";
 import { User } from "@/types/user";
+import { AxiosResponse } from "axios";
 
 interface FetchNotesResponse {
   notes: Note[];
@@ -42,27 +43,16 @@ export const fetchNoteByIdServer = async (id: string): Promise<Note> => {
   return data;
 };
 
-export const checkServerSession = async (): Promise<User | null> => {
+export const checkServerSession = async (): Promise<AxiosResponse<User>> => {
   const cookieStore = await cookies();
 
-  // const res = await nextServer.get("/auth/session", {
-  //   headers: {
-  //     Cookie: cookieStore.toString(),
-  //   },
-  // });
+  const res = await nextServer.get<User>("/auth/session", {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
 
-  // return res;
-  try {
-    const { data } = await nextServer.get<User>("/auth/session", {
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
-    });
-
-    return data ?? null;
-  } catch {
-    return null;
-  }
+  return res;
 };
 
 export const getServerMe = async (): Promise<User> => {
