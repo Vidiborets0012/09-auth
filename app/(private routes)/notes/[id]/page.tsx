@@ -5,9 +5,9 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-// import { fetchNoteById } from "@/lib/api/api";
-import { fetchNoteById } from "@/lib/api/clientApi";
+
 import NoteDetailsClient from "./NoteDetails.client";
+import { fetchNoteByIdServer } from "@/lib/api/serverApi";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -17,7 +17,7 @@ const MAX_DESCRIPTION_LENGTH = 120;
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
 
-  const note = await fetchNoteById(id);
+  const note = await fetchNoteByIdServer(id);
 
   const title = `${note.title} | NoteHub`;
   const description =
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ? `${note.content.slice(0, MAX_DESCRIPTION_LENGTH - 1).trim()}…`
       : note.content;
 
-  const url = `https://08-zustand-olive-one.vercel.app/notes/${id}`;
+  const url = `https://09-auth-six-vert.vercel.app/notes/${id}`;
 
   return {
     title,
@@ -54,7 +54,7 @@ export default async function NoteDetailsPage({ params }: Props) {
 
   await queryClient.prefetchQuery({
     queryKey: ["note", id],
-    queryFn: () => fetchNoteById(id),
+    queryFn: () => fetchNoteByIdServer(id),
   });
 
   return (
