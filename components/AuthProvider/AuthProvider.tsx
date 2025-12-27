@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { checkSession, logout } from "@/lib/api/clientApi";
+import { checkSession, getMe, logout } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 
 const privateRoutes = ["/profile"];
@@ -17,7 +17,6 @@ export default function AuthProvider({ children }: Props) {
   const pathname = usePathname();
   const router = useRouter();
 
-  // const { setUser, clearIsAuthenticated } = useAuthStore();
   const setUser = useAuthStore((s) => s.setUser);
   const clearIsAuthenticated = useAuthStore((s) => s.clearIsAuthenticated);
 
@@ -28,14 +27,10 @@ export default function AuthProvider({ children }: Props) {
       );
 
       try {
-        const user = await checkSession();
+        await checkSession();
+        const user = await getMe();
 
-        if (user) {
-          setUser(user);
-        } else {
-          throw new Error("No session");
-        }
-        // setUser(user);
+        setUser(user);
       } catch {
         clearIsAuthenticated();
 
