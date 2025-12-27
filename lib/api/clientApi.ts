@@ -59,15 +59,18 @@ export const logout = async (): Promise<void> => {
   await nextServer.post("/auth/logout");
 };
 
-export const checkSession = async (): Promise<User | null> => {
-  // const res = await nextServer.get<User>("/auth/session");
-  // return res.data;
-  try {
-    const { data } = await nextServer.get<User>("/auth/session");
-    return data ?? null;
-  } catch {
-    return null;
-  }
+// export const checkSession = async (): Promise<User | null> => {
+
+//   try {
+//     const { data } = await nextServer.get<User>("/auth/session");
+//     return data ?? null;
+//   } catch {
+//     return null;
+//   }
+// };
+
+export const checkSession = async (): Promise<void> => {
+  await nextServer.get("/auth/session");
 };
 
 export const getMe = async (): Promise<User> => {
